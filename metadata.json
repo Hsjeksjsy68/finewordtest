@@ -1,0 +1,6 @@
+{
+  "name": "FineWord",
+  "description": "A modern mobile-first social media web application with real-time messaging, posts, and Firebase backend.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

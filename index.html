@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FineWord</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="error-overlay" style="position:fixed;bottom:0;left:0;right:0;background:red;color:white;z-index:9999;padding:10px;display:none;"></div>
+    <script>
+      const overlay = document.getElementById('error-overlay');
+      const originalConsoleError = console.error;
+      console.error = function() {
+        if (arguments.length > 0 && typeof arguments[0] === 'string' && arguments[0].includes('insufficient permissions')) {
+          overlay.style.display = 'block';
+          overlay.innerText = Array.from(arguments).join(' ');
+        } else if (arguments.length > 0 && arguments[0] && arguments[0].message && arguments[0].message.includes('missing or insufficient permissions')) {
+          overlay.style.display = 'block';
+          overlay.innerText = arguments[0].message + " " + arguments[0].stack;
+        }
+        originalConsoleError.apply(console, arguments);
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
